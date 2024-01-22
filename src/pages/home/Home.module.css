@@ -1,0 +1,42 @@
+.messageWrapper {
+  margin-top: 20px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-color: #e94258;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width: fit-content;
+  margin-right: 10px;
+}
+
+.usernameWrapper {
+  color: #21263a;
+  font-weight: 700;
+}
+
+.contentWrapper {
+  color: white;
+}
+
+.homeWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.messagesContainer {
+  flex: 1; /* Make the messages container take remaining height */
+  overflow-y: auto; /* Add vertical scrollbar if needed */
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px;
+}

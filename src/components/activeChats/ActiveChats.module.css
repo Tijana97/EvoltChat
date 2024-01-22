@@ -1,0 +1,27 @@
+.activeChatsContent {
+  justify-content: left;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  color: white;
+}
+
+.chatWrapper {
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+}
+
+.activeChatsLayout {
+  margin: 0px;
+  padding: 0px;
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e94258;
+  font-size: large;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
