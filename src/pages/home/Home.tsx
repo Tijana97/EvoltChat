@@ -37,6 +37,12 @@ const Home = () => {
     }
   }, [dataList]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
   const handleSendMessage = async () => {
     // Perform actions to send the message (e.g., make an API call)
     if (message === "") {
@@ -47,7 +53,6 @@ const Home = () => {
           username: localStorage.getItem("token") as string,
           message: message,
         };
-        console.log("Test: ", test);
         const response = await axios.post(
           `http://localhost:8080/api/messages/new`,
           {
@@ -79,7 +84,7 @@ const Home = () => {
               backgroundColor: "white",
               color: "#e94258",
               borderRadius: "10px",
-              width: "100%", // Make the TextField full width
+              width: "100%",
             }}
             InputProps={{ style: { color: "#e94258" } }}
             id="outlined-basic"
@@ -87,13 +92,14 @@ const Home = () => {
             variant="outlined"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <SendIcon
             style={{
               color: "#e94258",
               fontSize: "xx-large",
               padding: "5px",
-              cursor: "pointer", // Make the icon clickable
+              cursor: "pointer",
             }}
             onClick={handleSendMessage}
           />

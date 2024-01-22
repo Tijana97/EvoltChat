@@ -45,7 +45,6 @@ const Login: React.FC = (): JSX.Element => {
         const token = response.data.jwt;
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         localStorage.setItem("token", response.data.jwt);
-        console.log(response.data.jwt);
         navigate("/home");
         navigate(0);
       } catch (error: any) {

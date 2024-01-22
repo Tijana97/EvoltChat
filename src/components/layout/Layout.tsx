@@ -46,7 +46,6 @@ const Layout: React.FC<ChildrenNode> = ({ children }) => {
       `http://localhost:8080/api/users/getme/${token}`
     );
     setOnlineUser(response.data);
-    console.log("Online: ", onlineUser);
   };
 
   useEffect(() => {

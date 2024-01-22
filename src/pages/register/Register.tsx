@@ -19,11 +19,9 @@ const Register: React.FC = (): JSX.Element => {
   const emailSchema = string().email().required();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [repeatPassword, setRepeatPassword] = useState<string>("");
   const [registerError, setRegisterError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [emptyFieldError, setEmptyFieldError] = useState<string>("");
-  const [repeatPasswordError, setRepeatPasswordError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [presentedError, setPresentedError] = useState<string>("");
 
@@ -58,26 +56,15 @@ const Register: React.FC = (): JSX.Element => {
   }, [password]);
 
   useEffect(() => {
-    const comparePasswords = () => {
-      if (password === repeatPassword) {
-        setRepeatPasswordError("");
-      } else {
-        setRepeatPasswordError("Passwords don't match.");
-      }
-    };
-    comparePasswords();
-  }, [password, repeatPassword]);
-
-  useEffect(() => {
     const checkForEmptyFields = () => {
-      if (password === "" || email === "" || repeatPassword === "") {
+      if (password === "" || email === "") {
         setEmptyFieldError("Please fill out all fields.");
       } else {
         setEmptyFieldError("");
       }
     };
     checkForEmptyFields();
-  }, [email, password, repeatPassword]);
+  }, [email, password]);
 
   const handleErrors = () => {
     if (emptyFieldError !== "") {
@@ -86,8 +73,6 @@ const Register: React.FC = (): JSX.Element => {
       setPresentedError(emailError);
     } else if (passwordError !== "") {
       setPresentedError(passwordError);
-    } else if (repeatPasswordError !== "") {
-      setPresentedError(repeatPasswordError);
     } else {
       setPresentedError("");
     }
@@ -95,7 +80,12 @@ const Register: React.FC = (): JSX.Element => {
 
   const handleRegister = async () => {
     handleErrors();
-    if (presentedError === "") {
+    if (
+      presentedError === "" &&
+      emptyFieldError === "" &&
+      emailError === "" &&
+      passwordError === ""
+    ) {
       try {
         const response = await axios.post(
           "http://localhost:8080/api/auth/register",
@@ -104,7 +94,6 @@ const Register: React.FC = (): JSX.Element => {
             password,
           }
         );
-        console.log("Registration successful!", response.data);
         setRegisterError("");
 
         const login = await axios.post("http://localhost:8080/api/auth/login", {
@@ -119,7 +108,6 @@ const Register: React.FC = (): JSX.Element => {
         navigate("/home");
         navigate(0);
       } catch (error: any) {
-        console.error("Registration failed:", error);
         setRegisterError(
           "Email or username you selected already exist in the database. Log in or use a different email and password for registration."
         );
@@ -206,16 +194,6 @@ const Register: React.FC = (): JSX.Element => {
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
-                    }}
-                  />
-                  <TextField
-                    label="RepeatPassword"
-                    variant="outlined"
-                    type="password"
-                    fullWidth
-                    value={repeatPassword}
-                    onChange={(e) => {
-                      setRepeatPassword(e.target.value);
                     }}
                   />
                   <div>
